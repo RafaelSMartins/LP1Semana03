@@ -6,14 +6,11 @@ namespace ChangeString
     {
         private static void Main(string[] args)
         {
-            Console.WriteLine("String: ");
             string phrase = Console.ReadLine();
+            string character = Console.ReadLine();
 
-            Console.WriteLine("Caráter: ");
-            char character = Console:ReadKey().KeyChar;
-            Console.WriteLine();
-
-            
+            string modifiedPhrase = phrase.Replace(character, "x");
+            Console.WriteLine(modifiedPhrase);
         }
     }
 }
