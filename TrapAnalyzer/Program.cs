@@ -25,9 +25,13 @@ namespace TrapAnalyzer
         /// <returns>The player gear.</returns>
         private static PlayerGear ParseGear(string[] args)
         {
-            // ////////// //
-            // CHANGE ME! //
-            // ////////// //
+            PlayerGear gear = PlayerGear.None;
+            for (int i = 1; i < args.Length; i++) {
+                if (Enum.TryParse(args[i], out PlayerGear Parsed)){
+                    gear |= Parsed;
+                }
+            }
+            return gear;
         }
 
         /// <summary>
@@ -38,9 +42,13 @@ namespace TrapAnalyzer
         /// <returns>Wether the player survived the trap or not.</returns>
         private static bool CanSurviveTrap(TrapType trap, PlayerGear gear)
         {
-            // ////////// //
-            // CHANGE ME! //
-            // ////////// //
+           return trap switch {
+                TrapType.FallingRocks => (gear & PlayerGear.Helmet) != 0,
+                TrapType.SpinningBlades => (gear & PlayerGear.Shield) != 0,
+                TrapType.PoisonGas => (gear & PlayerGear.Helmet) != 0 && (gear & PlayerGear.Shield) != 0,
+                TrapType.LavaPit => (gear & PlayerGear.Boots) != 0,
+                _ => false
+           };
         }
 
         /// <summary>
@@ -49,9 +57,12 @@ namespace TrapAnalyzer
         /// <param name="trap">The trap the player has fallen into.</param>
         private static void DisplayResult(TrapType trap, bool survives)
         {
-            // ////////// //
-            // CHANGE ME! //
-            // ////////// //
+           if (survives) {
+            Console.WriteLine($"Player survives {trap}");
+           }
+           else if (!survives) {
+            Console.WriteLine($"Player dies due to {trap}");
+           }
         }
     }
 }
